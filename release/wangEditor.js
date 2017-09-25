@@ -601,6 +601,9 @@ var config = {
 
 };
 
+// 默认行数
+var allLines = 1;
+
 /*
     工具
 */
@@ -2995,6 +2998,32 @@ Text.prototype = {
             }
             // 将回车之后生成的非 <p> 的顶级标签，改为 <p>
             pHandle(e);
+            
+            // 添加Line
+            let elem = editor.$textElem[0]
+            let lines = elem.children
+            for(let item of lines){
+                if (item.getAttribute('data-line') === null) {
+                    item.setAttribute('data-line', allLines);
+                    allLines += 1;
+                } else {
+                    // 判断重复
+                    // 取当前行数
+                    let dataLine = item.getAttribute('data-line')
+                    // 取重复行
+                    let repeatedly = elem.querySelectorAll('[data-line="' + dataLine + '"]')
+                    // 循环一下
+                    repeatedly.forEach(function(element, index) {
+                        // 如果存在重复行，就干他丫的
+                        if (index){
+                            allLines += 1;
+                            element.setAttribute('data-line', allLines);
+                        }
+                    }, this)
+                }
+            }
+            // console.log(lines)
+            // console.log(allLines)
         });
 
         // <pre><code></code></pre> 回车时 特殊处理

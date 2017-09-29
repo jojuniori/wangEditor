@@ -3002,7 +3002,8 @@ Text.prototype = {
             
             // 添加Line
             let elem = editor.$textElem[0]
-            let lines = elem.children
+            let lines = elem.querySelectorAll('p, li')
+            // let lines = elem.children
             for(let item of lines){
                 if (item.getAttribute('data-line') === null) {
                     item.setAttribute('data-line', allLines);

@@ -3001,19 +3001,19 @@ Text.prototype = {
             pHandle(e);
             
             // 添加Line
-            let elem = editor.$textElem[0]
-            let lines = elem.querySelectorAll('p, li')
-            // let lines = elem.children
-            for(let item of lines){
+            var elem = editor.$textElem[0]
+            var lines = elem.querySelectorAll('p, li')
+            // var lines = elem.children
+            lines.forEach(function(item) {
                 if (item.getAttribute('data-line') === null) {
                     item.setAttribute('data-line', allLines);
                     allLines += 1;
                 } else {
                     // 判断重复
                     // 取当前行数
-                    let dataLine = item.getAttribute('data-line')
+                    var dataLine = item.getAttribute('data-line')
                     // 取重复行
-                    let repeatedly = elem.querySelectorAll('[data-line="' + dataLine + '"]')
+                    var repeatedly = elem.querySelectorAll('[data-line="' + dataLine + '"]')
                     // 循环一下
                     repeatedly.forEach(function(element, index) {
                         // 如果存在重复行，就干他丫的
@@ -3023,7 +3023,27 @@ Text.prototype = {
                         }
                     }, this)
                 }
-            }
+            }, this);
+            // for(var item of lines){
+            //     if (item.getAttribute('data-line') === null) {
+            //         item.setAttribute('data-line', allLines);
+            //         allLines += 1;
+            //     } else {
+            //         // 判断重复
+            //         // 取当前行数
+            //         var dataLine = item.getAttribute('data-line')
+            //         // 取重复行
+            //         var repeatedly = elem.querySelectorAll('[data-line="' + dataLine + '"]')
+            //         // 循环一下
+            //         repeatedly.forEach(function(element, index) {
+            //             // 如果存在重复行，就干他丫的
+            //             if (index){
+            //                 allLines += 1;
+            //                 element.setAttribute('data-line', allLines);
+            //             }
+            //         }, this)
+            //     }
+            // }
             // console.log(lines)
             // console.log(allLines)
         });
